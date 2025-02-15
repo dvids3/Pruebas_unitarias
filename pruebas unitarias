@@ -1,0 +1,23 @@
+class requisito:
+    def __init__(self, monto:int, tasa_interes:float, cuotas:int):
+        self.monto = monto
+        self.tasa_interes = tasa_interes / 100
+        self.cuotas = cuotas
+
+    def cuota_mensual(self):
+        self.cuota_mensual = self.monto * self.tasa_interes / (1 - ( 1 + self.tasa_interes) ** -self.cuotas)
+        return self.cuota_mensual
+    
+    def total_intereses(self):
+        self.total_intereses = self.cuota_mensual * self.cuotas - self.monto
+        return self.total_intereses
+
+
+#prueba = requisito(200000, 3.1, 36)
+prueba = requisito(850000, 3.4, 24)
+
+
+print(f"Su cuota mensual es: {prueba.cuota_mensual()}")
+print(f"Su total de interese es: {prueba.total_intereses()}")
+print(prueba.tasa_interes)
+        
