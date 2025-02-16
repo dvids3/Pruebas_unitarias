@@ -4,6 +4,14 @@ class requisito:
         self.tasa_interes = tasa_interes / 100
         self.cuotas = cuotas
 
+    def tasa_usura(self):
+        if self.tasa_interes > 0.10:
+            return print("error: a tasa de interes supera la tasa de usura")
+        
+    def inereses0(self):
+        if self.tasa_interes == 0:
+            return print("Su tasa de interes es 0")
+
     def cuota_mensual(self):
         self.cuota_mensual = self.monto * self.tasa_interes / (1 - ( 1 + self.tasa_interes) ** -self.cuotas)
         return self.cuota_mensual
@@ -11,13 +19,35 @@ class requisito:
     def total_intereses(self):
         self.total_intereses = self.cuota_mensual * self.cuotas - self.monto
         return self.total_intereses
+    
+    def cuota_unica(self):
+        if self.cuotas == 1:
+            return self.monto * (1 + self.tasa_interes)
+
+    def sin_monto(self):
+        if self.monto == 0:
+            return "Error: el monto debe ser superior a cero"
+        
+    def cuota_negativa(self):
+        if self.cuotas < 0:
+            return "Error: el número de cuotas debe ser mayor a cero"
+
+#prueba_caso_normal = requisito(200000, 3.1, 36)
+#prueba_caso_normal2 = requisito(850000, 3.4, 24)
+prueba = requisito(480000, 0, 48)
+#prueba = requisito(50000, 12.5, 60)
+#prueba = requisito(90000, 2.4, 1)
+#prueba = requisito(0, 2.4, 60)
+#prueba = requisito(50000, 1, -10)
 
 
-#prueba = requisito(200000, 3.1, 36)
-prueba = requisito(850000, 3.4, 24)
 
 
 print(f"Su cuota mensual es: {prueba.cuota_mensual()}")
 print(f"Su total de interese es: {prueba.total_intereses()}")
-print(prueba.tasa_interes)
+print(f"Su tasa de usura es: {prueba.tasa_interes} {prueba.tasa_usura()}")
+print(f"Cuota unica: {prueba.cuota_unica()}")
+print(f"Sin monto: {prueba.sin_monto()}")
+print(f"Cuota negativa: {prueba.cuota_negativa()}")
+print(f"Interes 0: {prueba.intereses0()}")
         
