@@ -1,4 +1,4 @@
-class requisito:
+class requisito1:
     def __init__(self, monto:int, tasa_interes:float, cuotas:int):
         self.monto = monto
         self.tasa_interes = tasa_interes / 100
@@ -7,12 +7,10 @@ class requisito:
     def tasa_usura(self):
         if self.tasa_interes > 0.10:
             return print("error: a tasa de interes supera la tasa de usura")
-        
-    def inereses0(self):
-        if self.tasa_interes == 0:
-            return print("Su tasa de interes es 0")
 
     def cuota_mensual(self):
+        if self.tasa_interes == 0:
+            return "La tasa de interes no puede ser 0"
         self.cuota_mensual = self.monto * self.tasa_interes / (1 - ( 1 + self.tasa_interes) ** -self.cuotas)
         return self.cuota_mensual
     
@@ -32,22 +30,46 @@ class requisito:
         if self.cuotas < 0:
             return "Error: el número de cuotas debe ser mayor a cero"
 
-#prueba_caso_normal = requisito(200000, 3.1, 36)
-#prueba_caso_normal2 = requisito(850000, 3.4, 24)
-prueba = requisito(480000, 0, 48)
+#prueba = requisito1(200000, 3.1, 36)
+#prueba = requisito(850000, 3.4, 24)
+#prueba = requisito(480000, 0, 48)
 #prueba = requisito(50000, 12.5, 60)
 #prueba = requisito(90000, 2.4, 1)
 #prueba = requisito(0, 2.4, 60)
 #prueba = requisito(50000, 1, -10)
 
-
-
-
-print(f"Su cuota mensual es: {prueba.cuota_mensual()}")
-print(f"Su total de interese es: {prueba.total_intereses()}")
-print(f"Su tasa de usura es: {prueba.tasa_interes} {prueba.tasa_usura()}")
-print(f"Cuota unica: {prueba.cuota_unica()}")
-print(f"Sin monto: {prueba.sin_monto()}")
-print(f"Cuota negativa: {prueba.cuota_negativa()}")
-print(f"Interes 0: {prueba.intereses0()}")
+#print(f"Su cuota mensual es: {prueba.cuota_mensual()}")
+#print(f"Su total de interese es: {prueba.total_intereses()}")
+#print(f"Su tasa de usura es: {prueba.tasa_interes} {prueba.tasa_usura()}")
+#print(f"Cuota unica: {prueba.cuota_unica()}")
+#print(f"Sin monto: {prueba.sin_monto()}")
+#print(f"Cuota negativa: {prueba.cuota_negativa()}")
         
+
+
+class requisito2(requisito1):
+    def __init__(self, valor_compra:int, tasa_interes:float, cuotas:int):
+        self.valor_compra = valor_compra
+        self.tasa_interes = tasa_interes / 100
+        self.cuotas = cuotas
+
+    def tabla_amortizacion(self, numero_cuota:int, valor_cuota:float, abono_capital:float, saldo_pendiente:float):
+        self.numero_cuota = numero_cuota
+        self.valor_cuota = valor_cuota
+        self.abono_capital = abono_capital
+        self.saldo_pendiente = saldo_pendiente
+        return self.numero_cuota, self.valor_cuota, self.abono_capital, self.saldo_pendiente
+        
+
+    def abono_intereses(self):
+        self.abono_intereses = self.saldo_pendiente * self.tasa_interes
+        return self.abono_intereses
+
+    def abono_capital(self):
+        self.abono_capital = self.cuota_mensual - self.abono_intereses
+        return self.abono_capital
+    
+    
+prueba = requisito2(90000, 2.4, 1)
+
+print(f"Su abono de intereses es: {prueba.abono_intereses()}")
